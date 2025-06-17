@@ -1,0 +1,52 @@
+﻿@page "/"
+
+<h2>Customer App</h2>
+
+<div style="max-width: 600px;">
+    <!-- Brand Filter -->
+    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+        <label style="margin-right: 10px;"><strong>Brand</strong></label>
+        <select class="form-select" @bind="SelectedBrand" style="width: 150px;">
+            <option value="All">ALL</option>
+            <option value="HP">HP</option>
+            <option value="Lenovo">Lenovo</option>
+            <option value="Dell">Dell</option>
+        </select>
+    </div>
+
+    <!-- Product List -->
+    @foreach (var product in FilteredProducts)  
+    {
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <img src="@product.ImageUrl" alt="Image" width="60" style="margin-right: 15px;" />
+            <div>
+                <p><strong>@product.Name</strong></p>
+                <p>@product.Price.ToString("C")</p>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private string SelectedBrand = "All";
+
+    private List<Product> Products = new()
+    {
+        new Product { Brand = "HP", Name = "HP OMEN 16", Price = 2800, ImageUrl = "/images/OMEN16.jpeg" },
+        new Product { Brand = "Lenovo", Name = "Lenovo Legion 5 Pro", Price = 2600, ImageUrl = "/images/Lenovo_Legion_5_Pro.jpeg" },
+        new Product { Brand = "Dell", Name = "Dell XPS Desktop 8960", Price = 4500, ImageUrl = "/images/Dell_XPS_Desktop_8960.jpeg" }
+    };
+
+    private IEnumerable<Product> FilteredProducts =>
+        SelectedBrand == "All"
+        ? Products
+        : Products.Where(p => p.Brand == SelectedBrand);
+
+    class Product
+    {
+        public string Brand { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public string ImageUrl { get; set; }
+    }
+}

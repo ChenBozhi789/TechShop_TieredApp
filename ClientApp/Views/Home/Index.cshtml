@@ -1,0 +1,47 @@
+﻿@model ClientApp.Models.ProductViewModel
+
+<h2>Product Collection</h2>
+
+<!-- Brand Filer -->
+<form method="get">
+    <label for="brandFilter">Brand:</label>
+
+    <select id="brandFilter" name="brandId" onchange="this.form.submit()">
+        <option value="">ALL</option>
+        @foreach (var brand in Model.Brands)
+        {
+            // Display field is Brand Name, but the actual value is BrandID
+            <option value="@brand.BrandID">@brand.Name</option>
+        }
+    </select>
+</form>
+
+<hr />
+
+<!-- Product List -->
+<div class="product-grid">
+    @foreach (var product in Model.Products)
+    {
+        <div class="product-card">
+            <div class="image-placeholder"></div>
+            <h4>@product.Name</h4>
+            <p><strong>Price:</strong> $@product.Price</p>
+            <p><strong>Stock:</strong> @product.StockQuantity</p>
+            <a href="/Product/Details/@product.ProductID">Click me!</a>
+        </div>
+    }
+</div>
+
+<style>
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .product-card {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+</style>

@@ -1,0 +1,77 @@
+﻿@page "/productdetails"
+
+<h2>Product Details</h2>
+
+<div style="display: flex; gap: 20px;">
+    <img src="/images/OMEN16.jpeg" alt="Product Image" width="200" />
+
+    <div>
+        <h3>HP OMEN 16</h3>
+        <p><strong>$2,800.00</strong></p>
+        <p>Stock: @Stock</p>
+
+        @* <label>
+            Quantity:
+            <button @onclick="DecreaseQty">-</button>
+            <input type="number" style="width: 50px;" @bind="Quantity" min="1" max="@Stock" />
+            <button @onclick="IncreaseQty">+</button>
+        </label> *@
+
+        <p><strong>Quantity:</strong></p>
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <button @onclick="DecreaseQty">-</button>
+            <input type="number" style="width: 50px;" @bind="Quantity" min="1" max="@Stock" />
+            <button @onclick="IncreaseQty">+</button>
+        </div>
+
+
+
+        <p><strong>Description:</strong></p>
+        <p>High-performance gaming laptop with powerful graphics and fast processor.</p>
+
+        <button class="btn btn-primary" @onclick="BuyNow">Buy Now</button>
+    </div>
+</div>
+
+@if (ShowStockError)
+{
+    <p style="color: red;">Selected quantity exceeds available stock!</p>
+}
+
+@code {
+    private int Stock = 5;
+    private int Quantity = 1;
+    private bool ShowStockError = false;
+
+    private void DecreaseQty()
+    {
+        if (Quantity > 1) 
+        {
+            Quantity--;
+            StateHasChanged();
+        }
+    }
+
+    private void IncreaseQty()
+    {
+        if (Quantity < Stock)
+        {
+            Quantity++;
+            StateHasChanged();
+        }
+    }
+
+    private void BuyNow()
+    {
+        if (Quantity > Stock)
+        {
+            ShowStockError = true;
+        }
+        else
+        {
+            ShowStockError = false;
+            // TODO: Navigate to checkout page or pass data
+            Console.WriteLine($"Proceed to buy {Quantity} items");
+        }
+    }
+}

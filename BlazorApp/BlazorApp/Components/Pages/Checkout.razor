@@ -1,0 +1,53 @@
+﻿@page "/checkout"
+
+<PageTitle>Checkout</PageTitle>
+
+<h2>This Checkout page</h2>
+
+<div style="max-width: 450px;">
+    <div style="margin-bottom: 15px;">
+        <label><strong>Name:</strong></label>
+        <input class="form-control" placeholder="Enter your name" @bind="UserName"/>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label><strong>Email:</strong></label>
+        <input class="form-control" placeholder="Enter your Email" @bind="UserEmail"/>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label><strong>Number:</strong></label>
+        <input class="form-control" placeholder="Enter your Number" @bind="UserNumber"/>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+        <label>Total Price: </label>
+        <input class="form-control" placeholder="The total price is" @bind="TotalPrice"/>
+
+        <button class="btn btn-primary" @onclick="ShowMessage">Click Me</button>
+
+        <p>@Message</p>
+    </div>
+</div>
+
+@code {
+    private string UserName = "";
+    private string UserEmail = "";
+    private string UserNumber = "";
+    private string Message = "";
+    private string TotalPrice = "";
+
+    protected override void OnInitialized()
+    {
+        // 页面加载时初始化
+        UserName = string.Empty;
+        UserEmail = string.Empty;
+        UserNumber = string.Empty;
+        TotalPrice = string.Empty;
+    }
+
+    public void ShowMessage()
+    {
+        Message = $"Hello {UserName}, your email is {UserEmail}, and your number is {UserNumber}.";
+    }
+}

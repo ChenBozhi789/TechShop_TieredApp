@@ -1,0 +1,37 @@
+﻿@model Models.ProductModel // The Model is for UI
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+<form method="post" asp-action="SubmitOrder">
+    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+    <input type="hidden" name="Quantity" value="@ViewBag.Quantity" />
+
+
+    <div class="mb-3">
+        <label class="form-label"><strong>Name:</strong></label>
+        <input class="form-control" name="CustomerName" placeholder="Enter your name" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email:</label>
+        <input type="email" class="form-control" name="Email" placeholder="Enter your email" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Number:</label>
+        <input class="form-control" name="Number" placeholder="Enter your phone number" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Total Price:</label>
+        <input class="form-control" name="Amount" value="@(@Model.Price * (int)ViewBag.Quantity)" readonly />
+    </div>
+
+    <input type="hidden" name="OrderStatus" value="Pending" />
+
+    <button type="submit" class="btn btn-primary">Confirm</button>
+</form>

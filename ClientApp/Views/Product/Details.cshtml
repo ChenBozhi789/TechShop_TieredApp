@@ -1,0 +1,60 @@
+﻿@model Models.ProductModel // The Model is for UI
+
+<h2>Product Details</h2>
+
+<div class="product-details-container">
+
+    <div class="image-box">        
+        <img src="~/images/@Model.ProductImage" alt="@Model.Name" width="150" />
+    </div>
+
+    <div class="info-box">
+        <h3>@Model.Name</h3>
+        <p><strong>Price:</strong> $@Model.Price</p>
+        <p>
+            <strong>Stock:</strong> @Model.StockQuantity
+        </p>
+
+        <form method="get" asp-controller="Order" asp-action="Checkout">
+            <input type="hidden" name="productId" value="@Model.ProductID" />
+
+            <label><strong>Quantity:</strong></label>
+            <input type="number" name="quantity" value="1" min="1" max="@Model.StockQuantity" required />
+
+            <br />
+
+            <label><strong>Description:</strong></label>
+            <p>@Model.Description</p>
+
+            <button type="submit">Buy Now</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .product-details-container {
+        display: flex;
+        gap: 30px;
+    }
+
+    .image-box img {
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    .info-box {
+        flex: 1;
+    }
+
+    .buy-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
