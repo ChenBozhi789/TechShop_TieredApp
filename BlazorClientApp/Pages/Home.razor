@@ -1,0 +1,125 @@
+﻿@using RestApi.Client
+@using Models
+
+@page "/"
+@inject ProductClient ProductClient
+@inject BrandClient BrandClient
+@inject NavigationManager NavigationManager // ?
+
+<h2>Customer App</h2>
+
+<div class="filter-bar">
+    <label><strong>Brand</strong></label>
+    <select @onchange="OnBrandChanged">
+        <option value="">ALL</option>
+        @foreach (var brand in Brands)
+        {
+            // Select box displays name is Brand Name, but the actual value is BrandID
+            <option value="@brand.BrandID">@brand.Name</option>
+        }
+    </select>
+</div>
+
+<!-- Product List -->
+<div class="product-list">
+    <div class="product-item">
+        <img src="images/image_1.jpg" alt="HP OMEN 16" />
+        <div class="product-info">
+            <p class="product-name">HP OMEN 16</p>
+            <p class="product-price">$2,800.00</p>
+        </div>
+    </div>
+
+    <div class="product-item">
+        <img src="images/image_2.jpg" alt="Lenovo Legion 5 Pro" />
+        <div class="product-info">
+            <p class="product-name">Lenovo Legion 5 Pro</p>
+            <p class="product-price">$2,600.00</p>
+        </div>
+    </div>
+
+    <div class="product-item">
+        <img src="images/image_3.jpg" alt="Dell XPS Desktop 8960" />
+        <div class="product-info">
+            <p class="product-name">Dell XPS Desktop 8960</p>
+            <p class="product-price">$4,500.00</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    h2 {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .filter-bar {
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    select {
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    .product-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .product-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .product-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-name {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .product-price {
+        color: #444;
+        font-size: 16px;
+    }
+</style>
+
+@code {
+    // Create a List<> type to store all corresponding variable
+    private List<BrandModel> Brands = new();
+    private List<ProductModel> Products = new();
+    private List<ProductModel> FilteredProducts = new();
+    
+    private void OnBrandChanged(ChangeEventArgs e)
+    {
+        // ? is null-conditional operator
+        if (int.TryParse(e.Value?.ToString(), out int brandId))
+        {
+            // If selected successfully, get the specific Brand product from Brands List by BrandID
+            FilteredProducts = Products.Where(p => p.BrandID == brandId).ToList();
+        }
+        else
+        {
+            FilteredProducts = Products;
+        }
+    }
+
+}
