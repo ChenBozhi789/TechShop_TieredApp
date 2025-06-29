@@ -2,9 +2,9 @@
 {
     public interface IUnitOfWork
     {
-        IBrandRepository BrandRepository { get; }
-        IOrderRepository OrderRepository { get; }
-        IProductRepository ProductRepository { get; }
+        IRepository<Brand> BrandRepository { get; }
+        IRepository<Order> OrderRepository { get; }
+        IRepository<Product> ProductRepository { get; }
 
         void Dispose();
         void Save();

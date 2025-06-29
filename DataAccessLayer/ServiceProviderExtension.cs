@@ -14,9 +14,9 @@ namespace DataAccessLayer
         public static IServiceCollection RegisterRepositories(this IServiceCollection container)
         {
             container.AddScoped<IUnitOfWork, UnitOfWork>();
-            container.AddScoped<IBrandRepository, BrandRepository>();
-            container.AddScoped<IProductRepository, ProductRepository>();
-            container.AddScoped<IOrderRepository, OrderRepository>();
+            container.AddScoped<IRepository<Brand>, Repository<Brand>>();
+            container.AddScoped<IRepository<Product>, Repository<Product>>();
+            container.AddScoped<IRepository<Order>, Repository<Order>>();
 
             return container;
         }

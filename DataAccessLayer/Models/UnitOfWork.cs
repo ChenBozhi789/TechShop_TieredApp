@@ -11,9 +11,9 @@ namespace DataAccessLayer.Models
         // readonly 修饰符表示：这个字段只能在构造函数中被赋值，一旦赋值就不能再变。
         private readonly ModelContext _context;
 
-        private IProductRepository _productRepository;
-        private IOrderRepository _orderRepository;
-        private IBrandRepository _brandRepository;
+        private Repository<Product> _productRepository;
+        private Repository<Order> _orderRepository;
+        private Repository<Brand> _brandRepository;
 
         private bool _disposed = false;
 
@@ -24,39 +24,39 @@ namespace DataAccessLayer.Models
         }
 
         // Need to understand
-        public IProductRepository ProductRepository
+        public IRepository<Product> ProductRepository
         {
             get
             {
                 if (_productRepository == null)
                 {
-                    _productRepository = new ProductRepository(_context); // 修改为具体实现类
+                    _productRepository = new Repository<Product>(_context); // 修改为具体实现类
                 }
                 return _productRepository;
             }
         }
 
         // Need to understand
-        public IOrderRepository OrderRepository
+        public IRepository<Order> OrderRepository
         {
             get
             {
                 if (_orderRepository == null) // 修复判断语法
                 {
-                    _orderRepository = new OrderRepository(_context); // 修改为具体实现类
+                    _orderRepository = new Repository<Order>(_context); // 修改为具体实现类
                 }
                 return _orderRepository;
             }
         }
 
         // Need to understand
-        public IBrandRepository BrandRepository
+        public IRepository<Brand> BrandRepository
         {
             get
             {
                 if (_brandRepository == null)
                 {
-                    _brandRepository = new BrandRepository(_context); // 添加缺失部分
+                    _brandRepository = new Repository<Brand>(_context); // 添加缺失部分
                 }
                 return _brandRepository;
             }
