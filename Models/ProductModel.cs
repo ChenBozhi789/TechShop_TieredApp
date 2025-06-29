@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class ProductModel : IProductModel
+    public class ProductModel
     {
         [Required]
         [JsonPropertyName("productId")]
@@ -71,11 +71,11 @@ namespace Models
         public string Memory { get; set; }
 
         [JsonPropertyName("orders")]
-        public IList<IOrderModel> Orders { get; set; }
+        public IList<OrderModel> Orders { get; set; }
 
         public ProductModel()
         {
-            Orders = new List<IOrderModel>();
+            Orders = new List<OrderModel>();
         }
     }
 }

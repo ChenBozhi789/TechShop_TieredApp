@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class OrderModel : IOrderModel
+    public class OrderModel
     {
         [Required]
         [JsonPropertyName("orderId")]
