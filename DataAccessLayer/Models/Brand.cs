@@ -14,7 +14,7 @@ namespace DataAccessLayer.Models
         public string Country { get; set; } = string.Empty;
         public string Website { get; set; } = string.Empty;
 
-        // Entity collection
+        // Navigation property
         public ICollection<Product>? Products { get; set; }
     }
 

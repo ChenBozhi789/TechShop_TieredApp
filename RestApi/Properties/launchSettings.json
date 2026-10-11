@@ -13,8 +13,8 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "", // local port startup
-      "applicationUrl": "http://localhost:5159",
+      "launchUrl": "http://localhost:7061/api/brand", // local port startup
+      "applicationUrl": "http://localhost:7061",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

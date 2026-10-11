@@ -24,8 +24,9 @@ namespace DataAccessLayer.Models
         public string GPU { get; set; } = string.Empty;
         public string Memory { get; set; } = string.Empty;
 
-        public Brand? Brand { get; set; } // ?
-        public ICollection<Order>? Orders { get; set; } // Navigation property
+        // Navigation properties
+        public Brand? Brand { get; set; }
+        public ICollection<Order>? Orders { get; set; }
     }
 
 }

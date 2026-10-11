@@ -18,8 +18,9 @@ namespace DataAccessLayer.Models
         public string Number { get; set; } = string.Empty;
         public string OrderStatus { get; set; } = "Pending";
 
-        public DateTime TimeStamp { get; set; } = DateTime.Now;
+        public DateTime TimeStamp { get; set; } = DateTime.Now; 
 
+        // Navigation property
         public Product? OrderedProduct { get; set; }
     }
 

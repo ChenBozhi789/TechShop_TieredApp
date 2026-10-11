@@ -8,97 +8,61 @@
 
 <h2>Customer App</h2>
 
+<!-- Filter bar -->
 <div class="filter-bar">
-    <label><strong>Brand</strong></label>
+    <label><strong>Brand: </strong></label>
+    <!-- The value of filter bar -->
     <select @onchange="OnBrandChanged">
         <option value="">ALL</option>
+
         @foreach (var brand in Brands)
         {
             // Select box displays name is Brand Name, but the actual value is BrandID
             <option value="@brand.BrandID">@brand.Name</option>
         }
+
     </select>
 </div>
 
 <!-- Product List -->
-<div class="product-list">
-    <div class="product-item">
-        <img src="images/image_1.jpg" alt="HP OMEN 16" />
-        <div class="product-info">
-            <p class="product-name">HP OMEN 16</p>
-            <p class="product-price">$2,800.00</p>
-        </div>
-    </div>
+<div class="product-grid">   
+        @* <img src="images/image_1.jpg" alt="HP OMEN 16" /> *@
+        @foreach (var product in Products)
+        {
+            <div class="product-card">
+                <div class="image-placeholder"></div>
+                <h4>@product.Name</h4>
+                <p><strong>Price:</strong> $@product.Price</p>
+                <p><strong>Stock:</strong> @product.StockQuantity</p>
 
-    <div class="product-item">
-        <img src="images/image_2.jpg" alt="Lenovo Legion 5 Pro" />
-        <div class="product-info">
-            <p class="product-name">Lenovo Legion 5 Pro</p>
-            <p class="product-price">$2,600.00</p>
-        </div>
-    </div>
-
-    <div class="product-item">
-        <img src="images/image_3.jpg" alt="Dell XPS Desktop 8960" />
-        <div class="product-info">
-            <p class="product-name">Dell XPS Desktop 8960</p>
-            <p class="product-price">$4,500.00</p>
-        </div>
-    </div>
+                <a href="/Product/Details/@product.ProductID">Click me!</a>
+            </div>
+        }
 </div>
 
 <style>
-    h2 {
-        margin-top: 20px;
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .product-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         text-align: center;
     }
 
-    .filter-bar {
-        margin: 20px 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    select {
-        padding: 5px;
-        font-size: 16px;
-    }
-
-    .product-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .product-item {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-    }
-
-    .product-item img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-    }
-
-    .product-info {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .product-name {
-        font-weight: bold;
-        font-size: 18px;
-    }
-
-    .product-price {
-        color: #444;
-        font-size: 16px;
+    .image-placeholder {
+        width: 100%;
+        height: 140px;
+        background-color: #eee;
+        margin-bottom: 1rem;
+        border-radius: 4px;
     }
 </style>
 
@@ -108,6 +72,13 @@
     private List<ProductModel> Products = new();
     private List<ProductModel> FilteredProducts = new();
     
+    // When the page is initialized, call this method code block
+    protected override async Task OnInitializedAsync()
+    {
+        Brands = await BrandClient.GetAllAsync();  // ⬅️ 这一行必须执行成功
+        Products = await ProductClient.GetAllAsync();
+    }
+
     private void OnBrandChanged(ChangeEventArgs e)
     {
         // ? is null-conditional operator
@@ -121,5 +92,4 @@
             FilteredProducts = Products;
         }
     }
-
 }

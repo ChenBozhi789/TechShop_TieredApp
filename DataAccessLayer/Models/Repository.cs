@@ -62,8 +62,6 @@ namespace DataAccessLayer.Models
             if (entity != null) Delete(entity);
         }
 
-
-
         public virtual IEnumerable<T> List() => Entities.ToList();
     }
 }
